@@ -1,0 +1,47 @@
+JPacman exercise 2
+
+This project uses Java 8 and the included Gradle 5.3 wrapper.
+On this Mac, double-click run-tests.command to rerun the tests and open
+its HTML report. Alternatively, from the project folder:
+  export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+  ./gradlew --no-daemon clean test checkstyleTest
+
+Verified on 20 November 2026: 26 student tests + 39 instructor tests,
+zero failures, errors or skipped tests; checkstyleTest passes.
+Reports: build/reports/tests/test/index.html and
+build/reports/tests/defaultTest/index.html.
+
+IntelliJ: open this folder as a Gradle project. Select the installed
+Corretto Java 8 SDK for the project and Gradle JVM. Use the Gradle wrapper,
+Gradle for build/run, and IntelliJ IDEA for running tests. Local Gradle
+preferences are supplied in .idea/gradle.xml (not committed).
+Right-click DirectionTest, OccupantTest or BoardTest in src/test/java.
+The default regression tests require -ea (enabled by default).
+
+Changes:
+- Removed accidental digits before rootProject.name in settings.gradle.
+- Added south/east/west tests and checked both coordinates for north.
+- Replaced all three OccupantTest placeholders with state checks.
+- Added BoardTest for the valid square, null constructor input, and the
+  squareAt postcondition after the backing grid is changed.
+- Put defaultTest's own compiled output first on its classpath so the
+  instructor BoardTest (5 cases) and student BoardTest (3 cases) both run.
+
+Assertion experiment:
+The initial source is preserved as evidence/BoardTest-experiment.java.txt.
+With -ea, nullSquareAt fails at construction with AssertionError:
+"Initial grid cannot contain null squares". With assertions disabled,
+squareAt(0, 0) returns null and the experiment's isNull check passes.
+The final regression tests EXPECT assertion failures and therefore pass
+with -ea. They are intentionally different from the exploratory version.
+To repeat the exploratory run, use a disposable copy of this project,
+replace its src/test/java/nl/tudelft/jpacman/board/BoardTest.java with the
+saved experiment source, then run:
+  ./gradlew test --tests nl.tudelft.jpacman.board.BoardTest --rerun-tasks
+  ./gradlew -I evidence/disable-assertions.gradle test --tests nl.tudelft.jpacman.board.BoardTest --rerun-tasks
+The first command intentionally fails; the second passes. Do not replace
+the final regression file in the submission copy.
+
+Completed PDF and editable worksheet: local submission/ folder
+Personal worksheets and generated report screenshots are not committed.
+The PDF must be uploaded to MyCourses by the student.

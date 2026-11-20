@@ -1,0 +1,23 @@
+package nl.tudelft.jpacman.board;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.Test;
+
+/** Tests a valid board and the exercise's invalid-grid experiment. */
+class BoardTest {
+    /** A valid one-cell board returns its square. */
+    @Test
+    void validSquareAt() {
+        Square square = new BasicSquare();
+        Board board = new Board(new Square[][] {{square}});
+        assertThat(board.squareAt(0, 0)).isSameAs(square);
+    }
+
+    /** Demonstrates what happens when the grid contains a null square. */
+    @Test
+    void nullSquareAt() {
+        Board board = new Board(new Square[][] {{null}});
+        assertThat(board.squareAt(0, 0)).isNull();
+    }
+}
